@@ -1,6 +1,6 @@
 import requests
 from poke_exceptions import *
-from pokeurl import *
+from poke_fundamentals import *
 
 # minimum and maximum sizes for teams
 MAX_SIZE = 6
