@@ -11,7 +11,7 @@ if team is not None:
     team_list = ", ".join(str(mon.capitalize()) for mon in team)
     print("Your Pokémon team: " + team_list)
 
-# prints out user's team information if they opt to sea offensive/defensive matchups
+    # prints out user's team information if they opt to sea offensive/defensive matchups
     want_info = input("Would you like to see your team's info and type matchups? (Y for yes): ")
     if want_info == "Y":
         for mon in team: 
