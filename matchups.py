@@ -118,12 +118,12 @@ def get_effectiveness(typings):
                     if against in [t.name for t in typ.damage_relations.double_damage_to]:
                         eff_against1.append(against)
                     eff_list1 = ", ".join(str(eff_type.capitalize()) for eff_type in eff_against1)
-                if i == 1:
+                else:
                     typ = pb.type_(typings[i])
                     if against in [t.name for t in typ.damage_relations.double_damage_to]:
                         eff_against2.append(against)
                     eff_list2 = ", ".join(str(eff_type.capitalize()) for eff_type in eff_against2)
-        print(f"This Pokémon's {typings[0].capitalize()} typing is effective against: " + eff_list1 + " types.")    
+        print(f"Its {typings[0].capitalize()} typing is effective against: " + eff_list1 + " types.")    
         print(f"Its {typings[1].capitalize()} typing is effective against: " + eff_list2 + " types.")
     else:
         for against in TYPES:
@@ -136,13 +136,41 @@ def get_effectiveness(typings):
 
 # get types pokémon is weak against
 def get_weakness(typings):
-    weak_against = []
+    weak_against1 = []
     if len(typings) == 2:
-        pass
+        weak_against2, half_against1, half_against2, imm_against1, imm_against2, fin_weakness= ([] for i in range(6))
+        for i in range(2):
+            for against in TYPES:
+                if i == 0:
+                    typ = pb.type_(typings[i])
+                    if against in [t.name for t in typ.damage_relations.double_damage_from]:
+                        weak_against1.append(against) # weaknesses of first typing
+                    elif against in [t.name for t in typ.damage_relations.half_damage_from]:
+                        half_against1.append(against)
+                    elif against in [t.name for t in typ.damage_relations.no_damage_from]:
+                        imm_against1.append(against)
+                else:
+                    typ = pb.type_(typings[i])
+                    if against in [t.name for t in typ.damage_relations.double_damage_from]:
+                        weak_against2.append(against) # weaknesses of second typing
+                    elif against in [t.name for t in typ.damage_relations.half_damage_from]:
+                        half_against2.append(against)
+                    elif against in [t.name for t in typ.damage_relations.no_damage_from]:
+                        imm_against2.append(against)
+        for weak1 in weak_against1:
+            if weak1 in weak_against2:
+                fin_weakness.append(weak1)
+            elif (weak1 not in half_against2) and (weak1 not in imm_against2):
+                fin_weakness.append(weak1)
+        for weak2 in weak_against2:
+            if (weak2 not in half_against1) and (weak2 not in imm_against1):
+                fin_weakness.append(weak2)
+        weak_list = ", ".join(str(weak_type.capitalize()) for weak_type in fin_weakness)
+        print("This Pokémon is weak against: " + weak_list + " types.")
     else:
         for against in TYPES:
             typ = pb.type_(typings[0])
             if against in [t.name for t in typ.damage_relations.double_damage_from]:
-                weak_against.append(against)
-        weak_list = ", ".join(str(weak_type.capitalize()) for weak_type in weak_against)
+                weak_against1.append(against)
+        weak_list = ", ".join(str(weak_type.capitalize()) for weak_type in weak_against1)
         print("This Pokémon is weak against: " + weak_list + " types.")
