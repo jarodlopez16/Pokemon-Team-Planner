@@ -1,9 +1,5 @@
 import pokebase as pb
-
-
-# list of all typings
-TYPES = ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"]
-
+from poke_fundamentals import *
 
 def type_matchups(offe, defe): # provides effectiveness of each typing matchup
     # list of all pokemon typings
@@ -146,17 +142,17 @@ def get_weakness(typings):
                     if against in [t.name for t in typ.damage_relations.double_damage_from]:
                         weak_against1.append(against) # weaknesses of first typing
                     elif against in [t.name for t in typ.damage_relations.half_damage_from]:
-                        half_against1.append(against)
+                        half_against1.append(against) # types that do 0.5x damage to first typing
                     elif against in [t.name for t in typ.damage_relations.no_damage_from]:
-                        imm_against1.append(against)
+                        imm_against1.append(against) # types first typing is immune to
                 else:
                     typ = pb.type_(typings[i])
                     if against in [t.name for t in typ.damage_relations.double_damage_from]:
                         weak_against2.append(against) # weaknesses of second typing
                     elif against in [t.name for t in typ.damage_relations.half_damage_from]:
-                        half_against2.append(against)
+                        half_against2.append(against) # types that do 0.5x damage to second typing
                     elif against in [t.name for t in typ.damage_relations.no_damage_from]:
-                        imm_against2.append(against)
+                        imm_against2.append(against) # types second typing is immune to
         for weak1 in weak_against1:
             if weak1 in weak_against2:
                 fin_weakness.append(weak1)
