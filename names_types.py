@@ -1,6 +1,6 @@
 import requests
 from poke_exceptions import *
-from pokeurl import *
+from poke_fundamentals import *
 
 
 def get_pokemon_info(name): # retrieves info of selected pokemon from pokeapi
