@@ -22,5 +22,7 @@ def main():
                 print_nametypes(mon_info)
                 get_weakness(mon_types)
                 get_effectiveness(mon_types)
-        
+        else:
+            print("Exiting Program.")
+
 main()
